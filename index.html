@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Autorización Mercado Libre</title>
+</head>
+<body>
+  <h1>Autorización Mercado Libre</h1>
+  <p id="resultado">Procesando autorización...</p>
+  <button id="copiar" hidden>Copiar código</button>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const error = params.get("error");
+    const resultado = document.getElementById("resultado");
+    const boton = document.getElementById("copiar");
+
+    if (code) {
+      resultado.textContent = "Código recibido: " + code;
+      boton.hidden = false;
+      boton.onclick = () => navigator.clipboard.writeText(code);
+      history.replaceState({}, "", window.location.pathname);
+    } else if (error) {
+      resultado.textContent = "Error: " + error;
+    } else {
+      resultado.textContent = "Página preparada para recibir la autorización.";
+    }
+  </script>
+</body>
+</html>
